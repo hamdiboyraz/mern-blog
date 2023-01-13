@@ -1,9 +1,23 @@
-const express = require("express");
+const express = require('express');
+const cors = require('cors');
+
+const userRouter = require('./routes/userRoutes');
 
 const app = express();
 
-app.get("/test", (req, res) => {
-  res.json("Hello World!");
-});
+app.use(cors());
+app.use(express.json());
 
-app.listen(4000);
+// app.post('/register', (req, res) => {
+//   const { username, password } = req.body;
+//   res.json({
+//     requesData: {
+//       username,
+//       password,
+//     },
+//   });
+// });
+
+app.use('/', userRouter);
+
+module.exports = app;
