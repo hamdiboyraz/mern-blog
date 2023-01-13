@@ -1,11 +1,11 @@
-import "./App.css";
-import Header from "./components/Header";
-import { Route, Routes } from "react-router-dom";
-import Post from "./components/Post";
-import Layout from "./components/Layout";
-import IndexPage from "./components/IndexPage";
-import LoginPage from "./components/LoginPage";
-import RegisterPage from "./components/RegisterPage";
+import './App.css';
+import Header from './components/Header';
+import { Route, Routes } from 'react-router-dom';
+import Post from './components/Post';
+import Layout from './components/Layout';
+import IndexPage from './components/IndexPage';
+import LoginPage from './components/LoginPage';
+import RegisterPage from './components/RegisterPage';
 
 function App() {
   return (
