@@ -15,7 +15,6 @@ const RegisterPage = () => {
         },
         body: JSON.stringify({ username, password }),
       });
-      console.log(res.ok);
       if (res.ok === true) {
         alert('Registration Successful');
       } else {
