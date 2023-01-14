@@ -6,14 +6,24 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('');
 
   const register = async (e) => {
-    e.preventDefault();
-    await fetch('http://localhost:4000/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username, password }),
-    });
+    try {
+      e.preventDefault();
+      const res = await fetch('http://localhost:4000/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+      console.log(res.ok);
+      if (res.ok === true) {
+        alert('Registration Successful');
+      } else {
+        alert('Registration Failed');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
