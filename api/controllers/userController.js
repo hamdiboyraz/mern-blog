@@ -2,8 +2,8 @@ const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const signToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET);
+const signToken = (username, id) => {
+  return jwt.sign({ username, id }, process.env.JWT_SECRET);
 };
 
 exports.register = async (req, res) => {
@@ -44,7 +44,7 @@ exports.login = async (req, res) => {
     });
   }
 
-  const token = signToken(user._id);
+  const token = signToken(username, user._id);
 
   if (!token) {
     return res.status(401).json({
@@ -56,5 +56,20 @@ exports.login = async (req, res) => {
   res.status(200).json({
     status: 'success',
     token,
+  });
+};
+
+exports.logout = async (req, res) => {
+  res.clearCookie('token');
+  res.status(200).json({
+    status: 'success',
+  });
+};
+
+exports.profile = async (req, res) => {
+  const token = req.cookies.token; // const { token } = req.cookies;
+  jwt.verify(token, process.env.JWT_SECRET, {}, async (err, decodedToken) => {
+    if (err) throw err;
+    res.json(decodedToken);
   });
 };

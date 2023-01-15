@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const userRouter = require('./routes/userRoutes');
 
@@ -12,6 +13,7 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(cookieParser());
 
 // app.post('/register', (req, res) => {
 //   const { username, password } = req.body;
