@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useEffect, useContext } from 'react';
+import { UserContext } from './UserContext';
 
 const Header = () => {
-  const [username, setUsername] = useState('');
+  const { userInfo, setUserInfo } = useContext(UserContext);
   useEffect(() => {
     fetch('http://localhost:4000/profile', {
       credentials: 'include',
     }).then((res) => {
-      res.json().then((data) => {
-        setUsername(data.username);
+      res.json().then(() => {
+        setUserInfo(userInfo);
       });
     });
   }, []);
@@ -18,9 +19,11 @@ const Header = () => {
     fetch('http://localhost:4000/logout', {
       credentials: 'include',
     }).then((res) => {
-      setUsername('');
+      setUserInfo('');
     });
   };
+
+  const username = userInfo?.username; // Optional Chaining -> instead of throwing an error, it will return undefined
 
   return (
     <header>
