@@ -3,6 +3,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 const userRouter = require('./routes/userRoutes');
+const postRouter = require('./routes/postRoutes');
 
 const app = express();
 
@@ -25,6 +26,8 @@ app.use(cookieParser());
 //   });
 // });
 
+//app.post('/post', upload.single('files'), (req, res) => {});
+app.use('/post', postRouter);
 app.use('/', userRouter);
 
 module.exports = app;

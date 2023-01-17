@@ -23,14 +23,14 @@ const CreatePost = () => {
   const [content, setContent] = useState('');
   const [files, setFiles] = useState('');
 
-  const createNewPost = (e) => {
+  const createNewPost = async (e) => {
     const data = new FormData();
     data.set('title', title);
     data.set('summary', summary);
     data.set('content', content);
     data.set('files', files[0]); // files is an array of files
     e.preventDefault();
-    fetch('http://localhost:4000/post', {
+    await fetch('http://localhost:4000/post', {
       method: 'POST',
       body: data,
     });

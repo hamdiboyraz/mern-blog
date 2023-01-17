@@ -1,6 +1,7 @@
-const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
+const User = require('../models/userModel');
 
 const signToken = (username, id) => {
   return jwt.sign({ username, id }, process.env.JWT_SECRET);
@@ -75,3 +76,12 @@ exports.profile = async (req, res) => {
     res.json(decodedToken);
   });
 };
+
+// exports.createPost = async (req, res) => {
+//   const { originalname, path } = req.file;
+//   const parts = originalname.split('.'); // ['image', 'png']
+//   const extension = parts[parts.length - 1]; // 'png'
+//   const newPath = 'uploads/' + parts[0] + '.' + extension;
+//   fs.renameSync(path, newPath);
+//   res.json(req.file);
+// };
