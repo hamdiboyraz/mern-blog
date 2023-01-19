@@ -6,6 +6,10 @@ const postSchema = new mongoose.Schema(
     summary: String,
     content: String,
     coverImage: String,
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
   },
   { timestamps: true }
 );

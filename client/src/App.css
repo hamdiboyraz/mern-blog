@@ -55,6 +55,7 @@ div.post p.info {
   font-weight: bold;
   display: flex;
   gap: 10px;
+  white-space: nowrap;
 }
 
 div.post p.info a.author {

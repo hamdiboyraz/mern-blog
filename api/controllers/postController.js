@@ -1,6 +1,15 @@
 const fs = require('fs');
+const jwt = require('jsonwebtoken');
 
 const Post = require('../models/postModel');
+
+exports.getPosts = async (req, res) => {
+  const posts = await Post.find()
+    .populate('author', ['username'])
+    .sort('-createdAt')
+    .limit(20);
+  res.json(posts);
+};
 
 exports.createPost = async (req, res) => {
   const { originalname, path } = req.file;
@@ -8,12 +17,18 @@ exports.createPost = async (req, res) => {
   const extension = parts[parts.length - 1]; // 'png'
   const newPath = 'uploads/' + parts[0] + '.' + extension;
   fs.renameSync(path, newPath);
-  const { title, summary, content } = req.body;
-  const post = await Post.create({
-    title,
-    summary,
-    content,
-    coverImage: newPath,
+
+  const token = req.cookies.token; // const { token } = req.cookies;
+  jwt.verify(token, process.env.JWT_SECRET, {}, async (err, decodedToken) => {
+    if (err) throw err;
+    const { title, summary, content } = req.body;
+    const post = await Post.create({
+      title,
+      summary,
+      content,
+      coverImage: newPath,
+      author: decodedToken.id,
+    });
+    res.json(post);
   });
-  res.json(post);
 };
