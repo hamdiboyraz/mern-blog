@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { formatISO9075 } from 'date-fns';
+
 const PostPage = () => {
   const [post, setPost] = useState(null);
   const { id } = useParams();
@@ -14,10 +16,12 @@ const PostPage = () => {
 
   return (
     <div className="post-page">
+      <h1>{post.title}</h1>
+      <time>{formatISO9075(new Date(post.createdAt))}</time>
+      <div className="author">by {post.author.username}</div>
       <div className="image">
         <img src={`http://localhost:4000/${post.coverImage}`} alt="" />
       </div>
-      <h1>{post.title}</h1>
       <div dangerouslySetInnerHTML={{ __html: post.content }} />
     </div>
   );
