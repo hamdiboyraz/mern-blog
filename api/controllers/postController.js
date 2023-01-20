@@ -11,6 +11,12 @@ exports.getPosts = async (req, res) => {
   res.json(posts);
 };
 
+exports.getPostById = async (req, res) => {
+  const { id } = req.params;
+  const post = await Post.findById(id).populate('author', ['username']);
+  res.json(post);
+};
+
 exports.createPost = async (req, res) => {
   const { originalname, path } = req.file;
   const parts = originalname.split('.'); // ['image', 'png']
