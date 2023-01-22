@@ -27,6 +27,7 @@ const EditPost = () => {
     data.set('title', title);
     data.set('summary', summary);
     data.set('content', content);
+    data.set('id', id);
     if (files?.[0]) {
       data.set('files', files?.[0]); // files is an array of files
     }
